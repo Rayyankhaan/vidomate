@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens (space-separated RGB so Tailwind alpha modifiers work) */
+:root,
+[data-theme="dark"] {
+  --bg: 16 20 38; /* #101426 */
+  --surface: 23 29 50; /* #171D32 */
+  --primary: 139 124 255; /* #8B7CFF */
+  --accent: 67 217 232; /* #43D9E8 */
+  --fg: 255 255 255;
+  --muted: 166 174 195; /* #A6AEC3 */
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: 246 247 252;
+  --surface: 255 255 255;
+  --primary: 109 93 240;
+  --accent: 8 145 178;
+  --fg: 16 20 38;
+  --muted: 84 93 120;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: rgb(var(--primary) / 0.4);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .card {
+    @apply rounded-2xl border border-fg/10 bg-surface;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply btn bg-brand-gradient text-[#0b0f1f] shadow-glow hover:brightness-110 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-fg/15 bg-fg/[0.04] text-fg hover:bg-fg/[0.09];
+  }
+  .gradient-text {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+  .prose-vm p {
+    @apply mb-4 leading-relaxed text-muted;
+  }
+  .prose-vm a {
+    @apply text-accent underline-offset-4 hover:underline;
+  }
+  .prose-vm h2 {
+    @apply mb-3 mt-10 text-2xl font-semibold tracking-tight text-fg;
+  }
+  .prose-vm h3 {
+    @apply mb-2 mt-6 text-lg font-semibold text-fg;
+  }
+  .prose-vm ul {
+    @apply mb-4 list-disc space-y-2 pl-5 text-muted;
+  }
+}
+
+.hero-glow {
+  background:
+    radial-gradient(60% 50% at 20% 0%, rgb(var(--primary) / 0.28), transparent 70%),
+    radial-gradient(50% 45% at 85% 10%, rgb(var(--accent) / 0.18), transparent 70%);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgb(var(--fg) / 0.05) 25%, rgb(var(--fg) / 0.13) 50%, rgb(var(--fg) / 0.05) 75%);
+  background-size: 200% 100%;
+}

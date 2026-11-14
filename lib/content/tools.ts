@@ -1,0 +1,715 @@
+import type { PlatformId } from "@/types/platform";
+
+export interface ToolPage {
+  platform: PlatformId;
+  slug: string;
+  name: string;
+  seoTitle: string;
+  description: string;
+  h1: string;
+  lead: string;
+  about: string[];
+  /** What kind of link to copy, and where to find it (used to build unique how-to steps). */
+  noun: string;
+  where: string;
+  supports: string[];
+  limits: string[];
+  faqs: { q: string; a: string }[];
+  related: string[]; // slugs on the same platform
+  popular?: boolean;
+}
+
+export const TOOLS: ToolPage[] = [
+  /* ───────────── Instagram ───────────── */
+  {
+    platform: "instagram",
+    slug: "video-downloader",
+    name: "Instagram Video Downloader",
+    seoTitle: "Instagram Video Downloader – Check Public Video Links",
+    description: "Check whether a public Instagram video link is accessible, see the author and thumbnail, and find authorized ways to save your own videos.",
+    h1: "Instagram Video Downloader",
+    lead: "Paste a public Instagram video link to check what Instagram makes available for it.",
+    about: [
+      "Instagram video posts live at links that start with instagram.com/p/. VidoMate sends that link to Instagram's official embed interface and shows the author and thumbnail it returns, so you can confirm you have the right post before doing anything else.",
+      "If the video is yours, the cleanest way to keep a copy is Instagram's own data export or the original file on your phone. For other people's videos you need their permission, and VidoMate will not work around privacy settings to get at them.",
+    ],
+    noun: "video post",
+    where: "In Instagram, open the video, tap the paper-plane or three-dot menu and choose Copy link.",
+    supports: ["Public video posts (instagram.com/p/…)", "Videos inside public carousel posts (post-level link)", "Links copied from the Instagram app or website"],
+    limits: ["Private accounts are never accessed.", "Needs the site's Meta integration to be configured, otherwise you'll see 'Integration not configured'."],
+    faqs: [
+      { q: "Does this tool save the video file to my device?", a: "No. It checks the link and shows verified details. Any download option shown is one the platform authorizes; for most links the answer is to use Instagram's own export tools." },
+      { q: "Why can't it open my friend's video?", a: "If their account is private, the post can't be read without logging in, and VidoMate doesn't do that." },
+      { q: "Is the post link the same as the video file link?", a: "No. The link you copy points to the post page, not to a media file. That's why we validate the post link rather than a file address." },
+    ],
+    related: ["reels-downloader", "photo-downloader", "carousel-downloader"],
+    popular: true,
+  },
+  {
+    platform: "instagram",
+    slug: "reels-downloader",
+    name: "Instagram Reels Downloader",
+    seoTitle: "Instagram Reels Downloader – Reel Link Checker & Options",
+    description: "Paste an Instagram Reel link to confirm it's public and see its author and thumbnail. Learn how to save your own Reels using Instagram's official tools.",
+    h1: "Instagram Reels Downloader",
+    lead: "Check a public Reel link and see the options Instagram authorizes for saving Reels.",
+    about: [
+      "Reels use links that contain /reel/ or /reels/. Paste one and VidoMate confirms whether the Reel can be read through Instagram's embed interface, then shows the creator and preview image.",
+      "Creators can save their own Reels from the Reel's menu inside Instagram, and Instagram lets people download a copy of their account data. If a Reel belongs to someone else, ask them for the original file or their permission before reusing it.",
+    ],
+    noun: "Reel",
+    where: "Open the Reel in Instagram, tap the share arrow and choose Copy link.",
+    supports: ["Public Reels (instagram.com/reel/…)", "Reels links from instagram.com/reels/…", "Links shared from the mobile app"],
+    limits: ["Reels from private accounts can't be analyzed.", "Audio-only extraction of Reel music is not offered."],
+    faqs: [
+      { q: "Can I save a Reel with VidoMate?", a: "VidoMate verifies public Reel links and shows what's available. It doesn't copy or re-host Reels. Creators can save their own Reels inside Instagram." },
+      { q: "Why does my Reel link show 'unavailable'?", a: "The Reel may have been deleted, set to private, or restricted from embedding." },
+      { q: "Do you remove Instagram's watermark or music?", a: "No. VidoMate doesn't edit or modify media." },
+    ],
+    related: ["video-downloader", "story-downloader", "carousel-downloader"],
+    popular: true,
+  },
+  {
+    platform: "instagram",
+    slug: "photo-downloader",
+    name: "Instagram Photo Downloader",
+    seoTitle: "Instagram Photo Downloader – Check Public Photo Posts",
+    description: "Check a public Instagram photo post, preview its author and thumbnail, and learn how to keep your own photos at full quality.",
+    h1: "Instagram Photo Downloader",
+    lead: "Verify a public Instagram photo post before you reuse or share it.",
+    about: [
+      "Photo posts use /p/ links. VidoMate confirms the post is public and shows who posted it, so you can credit the photographer correctly or reach out for permission.",
+      "Photographers keep the best copy of their own pictures: the original file in their camera roll. Instagram's account data download also contains a copy of everything you've posted.",
+    ],
+    noun: "photo post",
+    where: "Open the photo in Instagram, tap the three-dot menu and choose Link.",
+    supports: ["Public single-photo posts", "Public posts with captions and credits", "Links from instagram.com and the app"],
+    limits: ["Full-resolution files of other people's photos aren't provided.", "Private accounts are never accessed."],
+    faqs: [
+      { q: "Can I download someone else's Instagram photo?", a: "Photos belong to their creators. VidoMate helps you identify the post and author so you can ask permission; it doesn't provide the file." },
+      { q: "How do I get my own photos in full quality?", a: "Use the originals from your device, or request your data from Instagram's Accounts Center." },
+      { q: "What if the post contains several photos?", a: "That's a carousel — see the Instagram Carousel Downloader page for how those links work." },
+    ],
+    related: ["video-downloader", "carousel-downloader", "profile-media-downloader"],
+  },
+  {
+    platform: "instagram",
+    slug: "story-downloader",
+    name: "Instagram Story Downloader",
+    seoTitle: "Instagram Story Downloader – What's Possible & Official Options",
+    description: "Understand what's possible with Instagram Stories: why public tools can't read them and how to save or archive your own Stories.",
+    h1: "Instagram Story Downloader",
+    lead: "Stories are login-gated, so here's what is and isn't possible — honestly.",
+    about: [
+      "Instagram Stories are only available to logged-in viewers and disappear after 24 hours unless saved. Instagram's public embed interface doesn't cover them, which means VidoMate can't read a Story link, and it never asks for your Instagram login.",
+      "To keep your own Stories, turn on Story Archive in Instagram's settings, or save a Story to your camera roll from the Story's menu. Highlights you create stay on your profile until you remove them.",
+    ],
+    noun: "Story link",
+    where: "Stories links look like instagram.com/stories/username/…; you can paste one to see this explanation.",
+    supports: ["Recognition of Instagram Story links", "Pointers to Instagram's Archive and Highlights tools"],
+    limits: ["Story content is explicitly unsupported — no media details or files are retrieved.", "VidoMate never requests Instagram credentials."],
+    faqs: [
+      { q: "Why can't VidoMate download Stories?", a: "Stories require authentication. Respecting that boundary means this operation returns 'unsupported' instead of a fake result." },
+      { q: "How do I save my own Story?", a: "Open your Story, tap the three-dot menu, and choose Save. You can also enable the Story Archive in settings." },
+      { q: "Can I view Stories anonymously here?", a: "No. VidoMate doesn't offer anonymous viewing of Stories." },
+    ],
+    related: ["story-viewer", "reels-downloader", "profile-media-downloader"],
+  },
+  {
+    platform: "instagram",
+    slug: "igtv-downloader",
+    name: "Instagram IGTV Downloader",
+    seoTitle: "Instagram IGTV Downloader – Long-Form Video Link Checker",
+    description: "Check an Instagram IGTV or long-form video link. See who posted it and learn how creators save long videos from their own accounts.",
+    h1: "Instagram IGTV Downloader",
+    lead: "Check older IGTV links and long-form Instagram videos.",
+    about: [
+      "IGTV was Instagram's long-form video format; those videos are now treated like regular video posts, but many older links still contain /tv/. VidoMate accepts both styles and checks them with the same embed interface.",
+      "If you uploaded the video yourself, you most likely still have the source file. Otherwise, request your information through Instagram's Accounts Center to get a copy of your uploads.",
+    ],
+    noun: "IGTV video",
+    where: "For an older IGTV video, open it, tap the three-dot menu and choose Copy link — it will contain /tv/.",
+    supports: ["Legacy IGTV links (instagram.com/tv/…)", "Long-form public video posts"],
+    limits: ["Private accounts are never accessed.", "Very long videos are not re-hosted or converted."],
+    faqs: [
+      { q: "Is IGTV still a separate product?", a: "Instagram merged IGTV into regular video posts, but /tv/ links from older posts continue to work as shortcuts." },
+      { q: "Can I extract the audio from an IGTV video?", a: "No. VidoMate doesn't convert or extract audio from videos." },
+      { q: "What if my IGTV link fails?", a: "It may have been removed or the account may now be private. Open it in Instagram to check." },
+    ],
+    related: ["video-downloader", "reels-downloader", "photo-downloader"],
+  },
+  {
+    platform: "instagram",
+    slug: "carousel-downloader",
+    name: "Instagram Carousel Downloader",
+    seoTitle: "Instagram Carousel Downloader – Multi-Photo Post Checker",
+    description: "Check a public Instagram carousel (multi-photo or video) post and see how to keep the slides you created using Instagram's own tools.",
+    h1: "Instagram Carousel Downloader",
+    lead: "Carousels bundle up to 20 slides into a single post link — here's how that works.",
+    about: [
+      "A carousel is one post with multiple photos or videos, so there is one link for the whole set. VidoMate validates that post link and shows the creator and cover image; it does not split the slides into separate files.",
+      "If you made the carousel, export the slide images from your design tool or your phone gallery. Instagram's data download also includes everything you've posted.",
+    ],
+    noun: "carousel post",
+    where: "Open the multi-slide post, tap the three-dot menu and choose Link — the same link covers every slide.",
+    supports: ["Public carousel posts (instagram.com/p/…)", "Mixed photo and video carousels (post-level details)"],
+    limits: ["Individual slide files are not provided.", "Private accounts are never accessed."],
+    faqs: [
+      { q: "Does VidoMate separate each carousel slide?", a: "No. It validates the post and shows post-level details. Slide-by-slide files aren't offered." },
+      { q: "How many slides can a carousel have?", a: "Instagram currently allows up to 20 photos or videos per carousel." },
+      { q: "How do I save my own carousel?", a: "Keep the source images, or request your data from Instagram's Accounts Center." },
+    ],
+    related: ["photo-downloader", "video-downloader", "reels-downloader"],
+  },
+  {
+    platform: "instagram",
+    slug: "profile-media-downloader",
+    name: "Instagram Profile Media Downloader",
+    seoTitle: "Instagram Profile Media Downloader – Official Export Guide",
+    description: "Why bulk-downloading an Instagram profile isn't supported here, and how to export your own account's photos and videos with Instagram.",
+    h1: "Instagram Profile Media Downloader",
+    lead: "Bulk profile downloads aren't offered — but exporting your own account is easy.",
+    about: [
+      "Downloading everything from someone's profile would sweep up media they haven't agreed to share and often means collecting data from private accounts. VidoMate does not offer that, and profile links are returned as unsupported.",
+      "If the profile is yours, Instagram's Accounts Center lets you request a full copy of your photos, videos and account information, delivered as a download from Instagram.",
+    ],
+    noun: "profile link",
+    where: "Profile links look like instagram.com/username; paste one to see this guidance.",
+    supports: ["Recognition of profile links", "Step-by-step pointers to Instagram's official data export"],
+    limits: ["Profile-wide media retrieval is explicitly unsupported.", "Private profiles are never accessed."],
+    faqs: [
+      { q: "Can I download all posts from a public profile?", a: "Not with VidoMate. Bulk collection of other people's media isn't something we provide." },
+      { q: "How do I export my own Instagram account?", a: "Go to Accounts Center → Your information and permissions → Download your information." },
+      { q: "Can I analyze a single post from a profile instead?", a: "Yes. Open the post, copy its link and use the Instagram Video, Reels or Photo tools." },
+    ],
+    related: ["story-downloader", "video-downloader", "photo-downloader"],
+  },
+  {
+    platform: "instagram",
+    slug: "story-viewer",
+    name: "Instagram Story Viewer",
+    seoTitle: "Instagram Story Viewer – Anonymous Viewing Explained",
+    description: "Can you view Instagram Stories anonymously? Learn what Instagram allows, why third-party viewers can't use private accounts, and safer alternatives.",
+    h1: "Instagram Story Viewer",
+    lead: "A straight answer on viewing Instagram Stories without an account.",
+    about: [
+      "Instagram requires login to watch Stories, and it shows the creator who viewed them. VidoMate does not offer anonymous or logged-out Story viewing, and it never uses someone else's credentials.",
+      "If you want less visibility, Instagram has its own controls such as Close Friends and hiding your Story from specific people. Creators can also share Stories to public Highlights that anyone can open.",
+    ],
+    noun: "Story or Highlight link",
+    where: "Open the Story or Highlight, tap the share icon and copy the link.",
+    supports: ["Recognition of Story and Highlight links", "Pointers to Instagram's privacy controls"],
+    limits: ["Story viewing is explicitly unsupported.", "No Instagram login is requested or stored."],
+    faqs: [
+      { q: "Is there a way to view Stories without being seen?", a: "Not through VidoMate. Instagram's own tools are the only reliable and authorized route." },
+      { q: "Do you need my Instagram password?", a: "Never. VidoMate doesn't ask for passwords for any platform." },
+      { q: "Are Highlights different from Stories?", a: "Highlights are saved Stories on a profile. They're still shown by Instagram; VidoMate links you to them rather than serving them." },
+    ],
+    related: ["story-downloader", "profile-media-downloader", "reels-downloader"],
+  },
+
+  /* ───────────── YouTube ───────────── */
+  {
+    platform: "youtube",
+    slug: "shorts",
+    name: "YouTube Shorts Downloader",
+    seoTitle: "YouTube Shorts Downloader – Check Shorts Links",
+    description: "Paste a YouTube Shorts link to see its title and creator, then use YouTube's official options to watch offline or reuse Shorts legitimately.",
+    h1: "YouTube Shorts Downloader",
+    lead: "Check a Shorts link and see how to save Shorts the official way.",
+    about: [
+      "Shorts links contain /shorts/ followed by an 11-character ID. VidoMate recognises that format, looks up the title and channel through YouTube's embed information, and links you back to the Short.",
+      "YouTube's own app offers a Download option on many Shorts, and creators can download their own uploads from YouTube Studio. Remixing other creators' Shorts is handled inside YouTube's Remix tools, which respect each creator's settings.",
+    ],
+    noun: "Short",
+    where: "In YouTube, open the Short, tap Share and choose Copy link.",
+    supports: ["Public Shorts (youtube.com/shorts/…)", "Shorts shared as youtu.be links"],
+    limits: ["Stream or file extraction is not offered.", "Private or age-restricted Shorts can't be analyzed."],
+    faqs: [
+      { q: "Can I download any Short?", a: "Not with VidoMate. Use the Download button in the YouTube app where it's available, or download your own Shorts from YouTube Studio." },
+      { q: "Why is there no direct file link?", a: "Offering one would mean extracting protected streams, which VidoMate doesn't do." },
+      { q: "Can I reuse a Short in my own video?", a: "Use YouTube's built-in Remix option, which follows the original creator's permissions." },
+    ],
+    related: ["to-mp4", "music", "to-mp3"],
+    popular: true,
+  },
+  {
+    platform: "youtube",
+    slug: "to-mp3",
+    name: "YouTube to MP3",
+    seoTitle: "YouTube to MP3 – Official & Legal Audio Options",
+    description: "Looking for YouTube to MP3? Learn why VidoMate doesn't convert videos to audio files and which official routes give you music offline.",
+    h1: "YouTube to MP3",
+    lead: "VidoMate doesn't convert YouTube videos to MP3 — here's what to use instead.",
+    about: [
+      "Turning a YouTube video into an MP3 means ripping the audio from a copyrighted stream, which YouTube's terms don't allow and VidoMate doesn't do. Pasting a link here will show the video's details and then point you to legitimate options.",
+      "For music offline, YouTube Music Premium offers downloads inside the official app. For free, royalty-free tracks, the YouTube Audio Library in YouTube Studio provides music you can download and use under its listed license terms.",
+    ],
+    noun: "YouTube link",
+    where: "Copy the video link from the address bar or from Share → Copy link.",
+    supports: ["Video details (title, channel, thumbnail)", "Pointers to YouTube Music Premium and the YouTube Audio Library"],
+    limits: ["MP3 or any audio-only conversion is explicitly unsupported.", "Copyrighted music is never ripped."],
+    faqs: [
+      { q: "Is converting YouTube to MP3 legal?", a: "It depends on your jurisdiction and the content, but YouTube's terms generally prohibit it. VidoMate doesn't offer it. This isn't legal advice." },
+      { q: "Where can I get music legally for free?", a: "Check the YouTube Audio Library in YouTube Studio, or sites that publish Creative Commons music with clear licenses." },
+      { q: "What if I own the audio?", a: "If it's your own upload, you probably have the source file. YouTube Studio also lets you download your own video." },
+    ],
+    related: ["audio-downloader", "song-downloader", "music"],
+    popular: true,
+  },
+  {
+    platform: "youtube",
+    slug: "audio-downloader",
+    name: "YouTube Audio Downloader",
+    seoTitle: "YouTube Audio Downloader – Authorized Audio Sources",
+    description: "Need audio from YouTube? See which authorized sources exist for podcasts, music and your own uploads — and why VidoMate won't rip audio.",
+    h1: "YouTube Audio Downloader",
+    lead: "Authorized ways to get audio that started life on YouTube.",
+    about: [
+      "VidoMate doesn't strip audio tracks from YouTube videos. Audio from podcasts and talks is often published by the creator on a podcast platform, which is the proper place to download it.",
+      "If you uploaded the video, you can download your own file from YouTube Studio and extract the audio yourself. Spoken-word creators also commonly link to RSS feeds or Spotify and Apple Podcasts in the video description.",
+    ],
+    noun: "video link",
+    where: "Copy the link from the address bar. Check the description for podcast or RSS links.",
+    supports: ["Video details so you can find the official audio source", "Pointers to creator-provided audio"],
+    limits: ["Audio extraction is explicitly unsupported.", "Music tracks are never ripped."],
+    faqs: [
+      { q: "How do I find the podcast version of a video?", a: "Look in the video description and the creator's channel About page; many link to their podcast feed." },
+      { q: "Can I download audio from my own video?", a: "Yes. Download your video from YouTube Studio and extract the audio with your own editing software." },
+      { q: "Why does VidoMate show no audio formats?", a: "Because it doesn't extract audio. It lists only formats a platform authorizes." },
+    ],
+    related: ["to-mp3", "song-downloader", "music"],
+  },
+  {
+    platform: "youtube",
+    slug: "song-downloader",
+    name: "YouTube Song Downloader",
+    seoTitle: "YouTube Song Downloader – Get Music Legitimately",
+    description: "Want a song you found on YouTube? Learn legitimate ways to own or stream it offline: purchases, Premium downloads and artist-provided files.",
+    h1: "YouTube Song Downloader",
+    lead: "Found a song on YouTube? Here are the legitimate ways to keep it.",
+    about: [
+      "Songs on YouTube are copyrighted works, and VidoMate doesn't copy them. Paste the link to confirm the title and uploader, then buy or stream the track through a store or subscription that pays the artist.",
+      "Many artists sell tracks directly on their own sites or Bandcamp, and YouTube Music Premium subscribers can download tracks for offline listening inside the official app.",
+    ],
+    noun: "song link",
+    where: "On the song's video page, copy the link from Share → Copy link.",
+    supports: ["Song and music-video details", "Pointers to purchase and Premium offline options"],
+    limits: ["Song file downloads are explicitly unsupported.", "DRM-protected or Content ID–claimed audio is never extracted."],
+    faqs: [
+      { q: "Can VidoMate give me the MP3 of a song?", a: "No. It only shows details and official routes." },
+      { q: "How do artists get paid when I stream offline?", a: "Official offline downloads inside YouTube Music still count as plays and compensate rights-holders." },
+      { q: "Is there any free legal music?", a: "Yes — the YouTube Audio Library and Creative Commons catalogs offer tracks with clear licenses." },
+    ],
+    related: ["to-mp3", "music", "audio-downloader"],
+  },
+  {
+    platform: "youtube",
+    slug: "to-mp4",
+    name: "YouTube to MP4",
+    seoTitle: "YouTube to MP4 – Official Video Download Options",
+    description: "Looking for YouTube to MP4? See how to download videos you own through YouTube Studio or watch offline with the official app.",
+    h1: "YouTube to MP4",
+    lead: "The authorized routes to an MP4 of a YouTube video.",
+    about: [
+      "MP4 is just a container format. If you uploaded the video, YouTube Studio lets you download your own file. For other videos, YouTube's offline mode inside the official app (where available to you) is the permitted way to watch without a connection.",
+      "VidoMate checks your link and shows the verified title, channel and thumbnail. It does not capture streams, so no MP4 file is generated here.",
+    ],
+    noun: "video link",
+    where: "Copy the link from the address bar or Share → Copy link.",
+    supports: ["Public watch links", "Video details for verification", "Pointers to YouTube Studio download for owners"],
+    limits: ["MP4 conversion or stream capture is explicitly unsupported.", "Private and age-restricted videos can't be analyzed."],
+    faqs: [
+      { q: "How can I get an MP4 of my own YouTube video?", a: "In YouTube Studio, open Content, choose your video and use the Download option in its menu." },
+      { q: "What about videos by other creators?", a: "Use the in-app Download button where available to you, or ask the creator for the file." },
+      { q: "Does VidoMate offer quality choices like 1080p?", a: "No, because it doesn't produce files. Quality options appear only if a platform authorizes a download." },
+    ],
+    related: ["shorts", "movies", "to-mp3"],
+    popular: true,
+  },
+  {
+    platform: "youtube",
+    slug: "music",
+    name: "YouTube Music Downloader",
+    seoTitle: "YouTube Music Downloader – Premium Offline Options",
+    description: "Using YouTube Music? Check a track link and learn how Premium offline downloads, Smart Downloads and playlists work through the official app.",
+    h1: "YouTube Music Downloader",
+    lead: "Offline listening on YouTube Music is built into the official app.",
+    about: [
+      "YouTube Music tracks are protected. With a Premium subscription you can download songs, albums and playlists inside the YouTube Music app and listen offline for as long as your subscription stays active.",
+      "Paste a music.youtube.com link here to verify the track title and artist. VidoMate won't extract the audio, but it will point you back to the right place to listen.",
+    ],
+    noun: "YouTube Music link",
+    where: "In YouTube Music, open the song, tap Share and copy the link (it starts with music.youtube.com).",
+    supports: ["music.youtube.com track links (details only)", "Pointers to Premium offline downloads"],
+    limits: ["Extraction of protected music is explicitly unsupported.", "Playlists and albums aren't analyzed — paste a single track."],
+    faqs: [
+      { q: "Do I need Premium to download music?", a: "For offline downloads inside YouTube Music, yes — that is how YouTube authorizes them." },
+      { q: "Are downloads permanent?", a: "No. Offline tracks stay available while your subscription is active and need to reconnect periodically." },
+      { q: "Why can't VidoMate fetch a song file?", a: "Because these files are protected, and VidoMate doesn't bypass protections." },
+    ],
+    related: ["song-downloader", "to-mp3", "audio-downloader"],
+  },
+  {
+    platform: "youtube",
+    slug: "movies",
+    name: "YouTube Movies Downloader",
+    seoTitle: "YouTube Movies Download – How Offline Viewing Works",
+    description: "Bought or rented a movie on YouTube? See how official offline viewing works and why protected films can't be downloaded by third-party sites.",
+    h1: "YouTube Movies Downloader",
+    lead: "Movies and shows you buy on YouTube can be saved — inside the official app.",
+    about: [
+      "Movies & TV on YouTube use digital rights management (DRM). Purchased and rented titles can be downloaded for offline viewing through the YouTube app on supported devices, subject to rental windows and device limits.",
+      "Because these files are protected, VidoMate doesn't and can't download them. Paste a link to confirm the page details and then use the official app.",
+    ],
+    noun: "movie page link",
+    where: "Open the movie page on YouTube and copy its link from the address bar.",
+    supports: ["Movie page details (when public)", "Pointers to YouTube's offline viewing help"],
+    limits: ["DRM-protected movies are explicitly unsupported.", "Rental and purchase rules are set by YouTube and the rights-holder."],
+    faqs: [
+      { q: "Can I download a movie I purchased?", a: "Yes, through the official YouTube app on a supported device." },
+      { q: "Why do rentals expire?", a: "Rental terms are set by the rights-holder, usually a limited window after you press play." },
+      { q: "Does VidoMate remove DRM?", a: "Never." },
+    ],
+    related: ["to-mp4", "music", "shorts"],
+  },
+
+  /* ───────────── Facebook ───────────── */
+  {
+    platform: "facebook",
+    slug: "video-downloader",
+    name: "Facebook Video Downloader",
+    seoTitle: "Facebook Video Downloader – Public Video Link Checker",
+    description: "Check a public Facebook video link, see who posted it, and learn how page owners download their own videos from Meta tools.",
+    h1: "Facebook Video Downloader",
+    lead: "Verify a public Facebook video link and find the authorized way to save your own uploads.",
+    about: [
+      "Facebook video links can come from posts, Watch pages or shortened fb.watch links. VidoMate accepts those formats and checks them through Meta's official embed interface for public videos.",
+      "Page owners and creators can download their own videos from Meta Business Suite or Creator Studio. Videos shared with friends or in private groups need a login to view, so they can't be analyzed here.",
+    ],
+    noun: "video link",
+    where: "On the video, tap Share, then Copy link.",
+    supports: ["Public video posts", "Watch links", "fb.watch short links"],
+    limits: ["Friends-only and group videos are never accessed.", "Requires the site's Meta integration to be configured."],
+    faqs: [
+      { q: "Can I download a video from a private group?", a: "No. Private content requires login and VidoMate never bypasses it." },
+      { q: "Where do I download my own Facebook videos?", a: "Meta Business Suite and Creator Studio provide download options for videos you uploaded." },
+      { q: "What is an fb.watch link?", a: "It's a short link for a Facebook video. VidoMate safely resolves it to the real video if it's public." },
+    ],
+    related: ["reels-downloader", "media-viewer"],
+    popular: true,
+  },
+  {
+    platform: "facebook",
+    slug: "reels-downloader",
+    name: "Facebook Reels Downloader",
+    seoTitle: "Facebook Reels Downloader – Reel Link Checker",
+    description: "Check a public Facebook Reel link and see which official options exist for saving Reels you created.",
+    h1: "Facebook Reels Downloader",
+    lead: "Check public Facebook Reels and learn how creators save their own.",
+    about: [
+      "Facebook Reels use links containing /reel/. Paste one and VidoMate checks whether it's a public Reel and shows the creator name when Meta returns it.",
+      "Creators can save their Reels from the Reel's menu in the Facebook app or manage them in Meta Business Suite. Reels that aren't public can't be inspected.",
+    ],
+    noun: "Reel",
+    where: "Open the Reel, tap the share arrow, and choose Copy link.",
+    supports: ["Public Facebook Reels (facebook.com/reel/…)", "Reels shared as Facebook links"],
+    limits: ["Reels with restricted audiences can't be analyzed.", "Reel audio isn't extracted."],
+    faqs: [
+      { q: "Is a Facebook Reel different from an Instagram Reel?", a: "They share a format but live on different platforms, so links and permissions differ. Use the matching tool for each." },
+      { q: "Can I download a Reel someone shared with me privately?", a: "No — private content is never accessed." },
+      { q: "How do I save my own Facebook Reel?", a: "Use the Save option from the Reel's menu or Meta Business Suite." },
+    ],
+    related: ["video-downloader", "media-viewer"],
+  },
+  {
+    platform: "facebook",
+    slug: "media-viewer",
+    name: "Facebook Media Viewer",
+    seoTitle: "Facebook Media Viewer – Preview Public Facebook Links",
+    description: "Preview what a public Facebook video link contains before opening it: creator, title and a direct link to the original post.",
+    h1: "Facebook Media Viewer",
+    lead: "Preview a public Facebook video link before you click through.",
+    about: [
+      "Sometimes you just want to know what a Facebook link is before opening it. The media viewer fetches the public details Meta returns, such as the creator name and title, and gives you a clear link to the original.",
+      "Nothing is saved or re-hosted, and links that point at private or friends-only content are reported as unavailable.",
+    ],
+    noun: "Facebook link",
+    where: "Copy the link from the post's Share menu or your browser's address bar.",
+    supports: ["Public video and Reel previews", "Direct link to the original post"],
+    limits: ["Private content isn't previewed.", "Photos and albums aren't analyzed."],
+    faqs: [
+      { q: "Does the viewer play the video inside VidoMate?", a: "No. It shows verified details and links to the original on Facebook." },
+      { q: "Is previewing a link safe?", a: "VidoMate checks the link against a platform allowlist and never opens arbitrary sites." },
+      { q: "Why does the viewer show little information?", a: "Meta only returns fields the owner has made public." },
+    ],
+    related: ["video-downloader", "reels-downloader"],
+  },
+
+  /* ───────────── TikTok ───────────── */
+  {
+    platform: "tiktok",
+    slug: "video-downloader",
+    name: "TikTok Video Downloader",
+    seoTitle: "TikTok Video Downloader – Link Checker & Save Options",
+    description: "Look up a public TikTok video to see its title, creator and cover, and learn how TikTok's own Save video option works.",
+    h1: "TikTok Video Downloader",
+    lead: "Check a TikTok link and see how to save videos the way TikTok allows.",
+    about: [
+      "TikTok publishes an oEmbed endpoint for public videos, and VidoMate uses it to show the caption, creator name and cover image of the link you paste. Short vm.tiktok.com links are resolved safely before the lookup.",
+      "Whether a video can be saved is the creator's choice. If downloads are enabled, the Save video button appears in the app's share menu. VidoMate leaves that decision with the creator and doesn't strip watermarks.",
+    ],
+    noun: "TikTok video",
+    where: "Open the video in TikTok, tap Share and choose Copy link.",
+    supports: ["Public videos (tiktok.com/@user/video/…)", "vm.tiktok.com and vt.tiktok.com short links"],
+    limits: ["Private and region-blocked videos can't be analyzed.", "Watermark removal isn't offered."],
+    faqs: [
+      { q: "Why is there no Save video button on some TikToks?", a: "Creators can disable downloads for their videos; if it's hidden, the creator hasn't allowed it." },
+      { q: "Can VidoMate give me a TikTok without the watermark?", a: "No. VidoMate doesn't modify or re-host videos." },
+      { q: "Does it work with TikTok Photo posts?", a: "Photo-mode links may return limited details. The tool reports what TikTok publishes." },
+    ],
+    related: ["media-viewer"],
+    popular: true,
+  },
+  {
+    platform: "tiktok",
+    slug: "media-viewer",
+    name: "TikTok Media Viewer",
+    seoTitle: "TikTok Media Viewer – Preview a TikTok Link Safely",
+    description: "Preview a public TikTok link without opening the app: caption, creator, cover image and a direct link to the original video.",
+    h1: "TikTok Media Viewer",
+    lead: "See what a TikTok link is before you open it.",
+    about: [
+      "TikTok links are often shared without context. The media viewer shows the caption and creator that TikTok publishes for public videos, so you can tell what you're about to open.",
+      "Only verified, platform-supplied details are shown. If TikTok doesn't return anything for a link, VidoMate says so rather than guessing.",
+    ],
+    noun: "TikTok link",
+    where: "Copy the link from the Share menu in the app, or from the browser address bar.",
+    supports: ["Public video previews", "Short-link resolution for vm.tiktok.com"],
+    limits: ["Profile pages, hashtags and searches aren't previewed.", "Private videos are reported as unavailable."],
+    faqs: [
+      { q: "Can I watch the video inside VidoMate?", a: "No — you'll get a link to open it on TikTok." },
+      { q: "Why do I see only a caption and creator?", a: "That's the verified information TikTok publishes for public videos." },
+      { q: "Is my link stored?", a: "No. VidoMate doesn't keep submitted links." },
+    ],
+    related: ["video-downloader"],
+  },
+
+  /* ───────────── Pinterest ───────────── */
+  {
+    platform: "pinterest",
+    slug: "video-downloader",
+    name: "Pinterest Video Downloader",
+    seoTitle: "Pinterest Video Downloader – Video Pin Link Checker",
+    description: "Check a Pinterest video pin to confirm what it is, and learn how to save video pins you created using Pinterest's own tools.",
+    h1: "Pinterest Video Downloader",
+    lead: "Check video pins and find the authorized way to save your own.",
+    about: [
+      "Video pins use the same pin links as images. VidoMate looks the pin up through Pinterest's official API (when configured) and reports whether it's a video, along with its title.",
+      "Most video pins are made by someone else, so you'll need the creator's permission to reuse them. For your own, Pinterest's account settings let you request your data.",
+    ],
+    noun: "video pin",
+    where: "Open the pin, tap the three-dot menu and choose Copy link — pin.it short links also work.",
+    supports: ["Video pins (pinterest.com/pin/…)", "pin.it short links"],
+    limits: ["Only pins the connected API account can access are returned.", "Requires the site's Pinterest token; otherwise 'Integration not configured'."],
+    faqs: [
+      { q: "Is it okay to reuse a Pinterest video?", a: "Only with the creator's permission or if the license allows it. Pinterest links usually point back to the original source." },
+      { q: "How do I find the original creator?", a: "Open the pin and follow its source link; VidoMate shows the pin's title and a link back." },
+      { q: "Why does it say 'Integration not configured'?", a: "Pinterest requires an API token, and this site hasn't had one added yet." },
+    ],
+    related: ["image-downloader"],
+    popular: true,
+  },
+  {
+    platform: "pinterest",
+    slug: "image-downloader",
+    name: "Pinterest Image Downloader",
+    seoTitle: "Pinterest Image Downloader – Pin & Image Source Finder",
+    description: "Check a Pinterest image pin, see its title and find the original source so you can use or license the picture properly.",
+    h1: "Pinterest Image Downloader",
+    lead: "Check an image pin and trace it back to its source.",
+    about: [
+      "Pinterest is a discovery tool: most image pins link to a website where the photo originally appeared. VidoMate confirms the pin and shows its title so you can follow the source link and check the licence.",
+      "For your own boards, request your data from Pinterest's account settings to get a copy of your pins and uploads.",
+    ],
+    noun: "image pin",
+    where: "Open the pin, choose the three-dot menu, then Copy link.",
+    supports: ["Image pins (pinterest.com/pin/…)", "pin.it short links"],
+    limits: ["Only pins accessible through the official API are returned.", "Full-size files of other people's images aren't provided."],
+    faqs: [
+      { q: "Can I use images I find on Pinterest commercially?", a: "Not automatically. You need the licence from the original owner. This isn't legal advice." },
+      { q: "How do I find an image's original source?", a: "Open the pin and follow its link to the website it came from." },
+      { q: "Can I save a whole board?", a: "Not with VidoMate. Use Pinterest's data download for your own boards." },
+    ],
+    related: ["video-downloader"],
+  },
+
+  /* ───────────── Reddit ───────────── */
+  {
+    platform: "reddit",
+    slug: "video-downloader",
+    name: "Reddit Video Downloader",
+    seoTitle: "Reddit Video Downloader – Post Link Checker",
+    description: "Paste a Reddit post link to check if it contains video and see its title and author, with a link to the original post.",
+    h1: "Reddit Video Downloader",
+    lead: "Check whether a Reddit post contains video and find the original.",
+    about: [
+      "Reddit posts hold images, galleries, text and video. VidoMate asks Reddit's official API about the post and tells you whether it's a video post, who posted it, and where it lives.",
+      "Videos uploaded to Reddit belong to their posters. VidoMate links you back to the post instead of copying the file.",
+    ],
+    noun: "Reddit post",
+    where: "In the Reddit app, tap Share on the post and choose Copy link.",
+    supports: ["Posts (reddit.com/r/…/comments/…)", "redd.it short links", "Share links (r/…/s/…)"],
+    limits: ["Removed, private or quarantined posts can't be analyzed.", "Requires Reddit API credentials on the server."],
+    faqs: [
+      { q: "Does the tool detect video-only posts?", a: "Yes, when Reddit marks the post as a video it's shown in the details." },
+      { q: "What about videos hosted elsewhere?", a: "Embedded videos from other sites are shown as posts; check the original host's terms." },
+      { q: "Why is the thumbnail hidden?", a: "Adult-marked posts hide thumbnails." },
+    ],
+    related: ["media-viewer"],
+    popular: true,
+  },
+  {
+    platform: "reddit",
+    slug: "media-viewer",
+    name: "Reddit Media Viewer",
+    seoTitle: "Reddit Media Viewer – Preview a Reddit Post Link",
+    description: "Preview a public Reddit post link: title, author, thumbnail and media type — then open the original thread.",
+    h1: "Reddit Media Viewer",
+    lead: "Preview a Reddit post before you open the thread.",
+    about: [
+      "Use the media viewer to see what a Reddit link points to: the title, the author and whether it's an image, a video or a text post.",
+      "Everything shown comes from Reddit's own API at the time you ask, and nothing is stored on VidoMate.",
+    ],
+    noun: "Reddit link",
+    where: "Copy the post's link from the Share menu or the browser address bar.",
+    supports: ["Public post previews", "Short-link and share-link resolution"],
+    limits: ["Comments and entire subreddits aren't analyzed.", "Private communities are never accessed."],
+    faqs: [
+      { q: "Can I preview a comment link?", a: "VidoMate previews the post the comment belongs to." },
+      { q: "Does the viewer show galleries?", a: "It reports the post's details; gallery images aren't re-hosted." },
+      { q: "Is the data live?", a: "Yes, it's requested from Reddit each time and not cached." },
+    ],
+    related: ["video-downloader"],
+  },
+
+  /* ───────────── Threads ───────────── */
+  {
+    platform: "threads",
+    slug: "media-viewer",
+    name: "Threads Media Viewer",
+    seoTitle: "Threads Media Viewer – Open & Check Threads Post Links",
+    description: "Check a Threads post link and open the original post. Learn why Threads media details aren't available through a public API.",
+    h1: "Threads Media Viewer",
+    lead: "Recognize Threads links and open the original post.",
+    about: [
+      "Threads, Meta's text-first network, doesn't currently provide a public endpoint for reading arbitrary posts' media. VidoMate therefore recognises the link and gives you a clean way to open the original, but it doesn't claim to show media details.",
+      "If Meta adds a public interface, the Threads adapter in VidoMate can be switched on without changing the site.",
+    ],
+    noun: "Threads post",
+    where: "In Threads, tap the share icon under the post and choose Copy link.",
+    supports: ["threads.net and threads.com post links", "Direct link to the original post"],
+    limits: ["Media details are explicitly unsupported.", "Private profiles are never accessed."],
+    faqs: [
+      { q: "Why does the tool say 'unsupported'?", a: "Because there's no authorized public interface to read Threads media, and VidoMate doesn't fake results." },
+      { q: "Can I still open the post?", a: "Yes, the result gives you an Open on Threads action." },
+      { q: "Is anything stored?", a: "No. Links are processed and discarded." },
+    ],
+    related: ["authorized-media-downloader"],
+  },
+  {
+    platform: "threads",
+    slug: "authorized-media-downloader",
+    name: "Threads Authorized Media Downloader",
+    seoTitle: "Threads Media Download – Official Ways to Save Your Content",
+    description: "How to download your own Threads posts and media using Meta's official data tools, and what to do about other people's content.",
+    h1: "Threads Authorized Media Downloader",
+    lead: "Official ways to save your own Threads media.",
+    about: [
+      "The authorized way to download Threads content is to request your own information from Meta. The export includes the posts and media you created, delivered as a file from Meta.",
+      "For other people's posts, you need the author's permission, which they can provide by sending you the original. VidoMate doesn't extract media from Threads.",
+    ],
+    noun: "Threads post",
+    where: "Copy the post link if you want to open it; for downloads, use your account's data export instead.",
+    supports: ["Link recognition", "Guidance on Meta's data download tools"],
+    limits: ["Downloading media from posts is explicitly unsupported.", "No Threads or Instagram login is requested."],
+    faqs: [
+      { q: "How do I export my Threads content?", a: "Use your Threads or Instagram account settings to download your information." },
+      { q: "Can creators share media with me?", a: "Yes — ask the author for the original file." },
+      { q: "Will VidoMate add Threads downloading later?", a: "Only if an authorized public interface becomes available." },
+    ],
+    related: ["media-viewer"],
+  },
+
+  /* ───────────── Dailymotion ───────────── */
+  {
+    platform: "dailymotion",
+    slug: "video-downloader",
+    name: "Dailymotion Video Downloader",
+    seoTitle: "Dailymotion Video Downloader – Video Info & Link Checker",
+    description: "Look up a Dailymotion video: verified title, channel, duration and thumbnail from Dailymotion's public API, with a link to watch it.",
+    h1: "Dailymotion Video Downloader",
+    lead: "Get verified details for a Dailymotion video in seconds.",
+    about: [
+      "Dailymotion's open Data API serves public video details without a key, so this tool works out of the box. Paste a dailymotion.com or dai.ly link and you'll get the title, channel, duration and thumbnail.",
+      "The API doesn't provide downloadable files, so VidoMate shows an Open on Dailymotion action instead of a file. Uploaders can manage their own videos from their Dailymotion account.",
+    ],
+    noun: "video link",
+    where: "On the video page, copy the link from the address bar or use Share → Copy link.",
+    supports: ["Video links (dailymotion.com/video/…)", "dai.ly short links"],
+    limits: ["Private and password-protected videos can't be analyzed.", "No downloadable files are offered through the public API."],
+    faqs: [
+      { q: "Does the duration come from Dailymotion?", a: "Yes — it's returned by Dailymotion's API with the other video details." },
+      { q: "Can I download the file?", a: "VidoMate doesn't provide files for Dailymotion; use Dailymotion's own tools for videos you uploaded." },
+      { q: "What does 'unavailable' mean here?", a: "The video was removed, is private or is password-protected." },
+    ],
+    related: ["media-viewer"],
+    popular: true,
+  },
+  {
+    platform: "dailymotion",
+    slug: "media-viewer",
+    name: "Dailymotion Media Viewer",
+    seoTitle: "Dailymotion Media Viewer – Preview a Video Link",
+    description: "Preview a Dailymotion video link before opening it: title, channel, length and cover image fetched live from the public API.",
+    h1: "Dailymotion Media Viewer",
+    lead: "Preview a Dailymotion link without leaving VidoMate.",
+    about: [
+      "The media viewer fetches the public record for a Dailymotion video and displays it as a compact card, so you can confirm the title, channel and runtime before you click.",
+      "Results come straight from Dailymotion at the moment you submit the link. VidoMate doesn't cache, store or re-host anything.",
+    ],
+    noun: "Dailymotion link",
+    where: "Copy the link from the video page or the Share menu.",
+    supports: ["Public video previews", "dai.ly short links"],
+    limits: ["Channels and playlists aren't previewed.", "Private videos are reported as unavailable."],
+    faqs: [
+      { q: "Can I preview a channel link?", a: "Not yet — paste a link to a single video." },
+      { q: "Why is the thumbnail missing?", a: "Some videos don't expose a large thumbnail through the API." },
+      { q: "How fresh is the preview?", a: "It's live: each request queries Dailymotion again." },
+    ],
+    related: ["video-downloader"],
+  },
+];
+
+export function getTool(platform: string, slug: string): ToolPage | undefined {
+  return TOOLS.find((t) => t.platform === platform && t.slug === slug);
+}
+
+export function getToolsFor(platform: PlatformId): ToolPage[] {
+  return TOOLS.filter((t) => t.platform === platform);
+}
+
+export const POPULAR_TOOLS: ToolPage[] = TOOLS.filter((t) => t.popular);
+
+export function toolPath(t: Pick<ToolPage, "platform" | "slug">): string {
+  return `/${t.platform}/${t.slug}`;
+}
+
+/** Three unique-ish how-to steps for a tool page. */
+export function stepsFor(t: Pick<ToolPage, "noun" | "where">): { title: string; body: string }[] {
+  return [
+    { title: `Copy the ${t.noun} link`, body: t.where },
+    { title: "Paste it into VidoMate", body: "Paste the link into the box above and press Analyze Link. The platform is detected automatically." },
+    { title: "Review what's available", body: "See the verified details the platform shares, plus any official or authorized options for that link." },
+  ];
+}

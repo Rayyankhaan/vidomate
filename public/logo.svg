@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 56" role="img" aria-label="VidoMate">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8B7CFF"/>
+      <stop offset="1" stop-color="#43D9E8"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="6" width="44" height="44" rx="13" fill="url(#g)"/>
+  <path d="M19 18.5v19a1.6 1.6 0 0 0 2.4 1.4l16.2-9.5a1.6 1.6 0 0 0 0-2.8L21.4 17.1A1.6 1.6 0 0 0 19 18.5Z" fill="#101426"/>
+  <text x="58" y="38" font-family="Inter, Geist, system-ui, sans-serif" font-size="29" font-weight="700" letter-spacing="-0.5" fill="#8B7CFF">Vido<tspan fill="#43D9E8">Mate</tspan></text>
+</svg>
